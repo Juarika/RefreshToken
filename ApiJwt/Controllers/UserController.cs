@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ApiJwt.Dtos;
 using ApiJwt.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +12,8 @@ public class UserController : ApiBaseController
     {
         _userService = userService;
     }
-        [HttpPost("register")]
+    
+    [HttpPost("register")]
     public async Task<ActionResult> RegisterAsync(RegisterDto model)
     {
         var result = await _userService.RegisterAsync(model);
@@ -48,7 +45,6 @@ public class UserController : ApiBaseController
         return Ok(response);
     }
 
-
     private void SetRefreshTokenInCookie(string refreshToken)
     {
         var cookieOptions = new CookieOptions
@@ -58,5 +54,4 @@ public class UserController : ApiBaseController
         };
         Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
     }
-    
 }

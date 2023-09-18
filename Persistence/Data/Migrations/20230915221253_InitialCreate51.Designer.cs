@@ -11,8 +11,8 @@ using Persistence;
 namespace Persistence.Data.Migrations
 {
     [DbContext(typeof(JwtAppContext))]
-    [Migration("20230911231428_InitialCreateMig2")]
-    partial class InitialCreateMig2
+    [Migration("20230915221253_InitialCreate51")]
+    partial class InitialCreate51
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,72 @@ namespace Persistence.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("Domain.Entities.Categoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar")
+                        .HasColumnName("CategoriaName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("categoria", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Marca", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar")
+                        .HasColumnName("MarcaName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("marca", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Producto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoriaId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("DateTime");
+
+                    b.Property<int>("MarcaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<decimal>("Precio")
+                        .HasColumnType("decimal(18,3)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoriaId");
+
+                    b.HasIndex("MarcaId");
+
+                    b.ToTable("productos", (string)null);
+                });
 
             modelBuilder.Entity("Domain.Entities.RefreshToken", b =>
                 {
@@ -111,6 +177,25 @@ namespace Persistence.Data.Migrations
                     b.ToTable("userRol", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.Producto", b =>
+                {
+                    b.HasOne("Domain.Entities.Categoria", "Categoria")
+                        .WithMany("Productos")
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Marca", "Marca")
+                        .WithMany("Productos")
+                        .HasForeignKey("MarcaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Categoria");
+
+                    b.Navigation("Marca");
+                });
+
             modelBuilder.Entity("Domain.Entities.RefreshToken", b =>
                 {
                     b.HasOne("Domain.Entities.User", "User")
@@ -139,6 +224,16 @@ namespace Persistence.Data.Migrations
                     b.Navigation("Rol");
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Categoria", b =>
+                {
+                    b.Navigation("Productos");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Marca", b =>
+                {
+                    b.Navigation("Productos");
                 });
 
             modelBuilder.Entity("Domain.Entities.Rol", b =>

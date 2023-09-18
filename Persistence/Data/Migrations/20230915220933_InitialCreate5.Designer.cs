@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
@@ -10,9 +11,11 @@ using Persistence;
 namespace Persistence.Data.Migrations
 {
     [DbContext(typeof(JwtAppContext))]
-    partial class JwtAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230915220933_InitialCreate5")]
+    partial class InitialCreate5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +85,7 @@ namespace Persistence.Data.Migrations
 
                     b.HasIndex("MarcaId");
 
-                    b.ToTable("productos", (string)null);
+                    b.ToTable("Producto", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.RefreshToken", b =>

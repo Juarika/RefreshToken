@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
+
 namespace ApiJwt.Services;
 
 public class UserService : IUserService
@@ -228,5 +229,4 @@ public class UserService : IUserService
             signingCredentials: signingCredentials);
         return jwtSecurityToken;
     }
-
 }
