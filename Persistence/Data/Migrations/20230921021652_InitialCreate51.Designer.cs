@@ -11,7 +11,7 @@ using Persistence;
 namespace Persistence.Data.Migrations
 {
     [DbContext(typeof(JwtAppContext))]
-    [Migration("20230915221253_InitialCreate51")]
+    [Migration("20230921021652_InitialCreate51")]
     partial class InitialCreate51
     {
         /// <inheritdoc />

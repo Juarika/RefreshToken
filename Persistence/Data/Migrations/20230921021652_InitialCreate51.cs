@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Persistence.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate5 : Migration
+    public partial class InitialCreate51 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -80,7 +80,7 @@ namespace Persistence.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Producto",
+                name: "productos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -94,15 +94,15 @@ namespace Persistence.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Producto", x => x.Id);
+                    table.PrimaryKey("PK_productos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Producto_categoria_CategoriaId",
+                        name: "FK_productos_categoria_CategoriaId",
                         column: x => x.CategoriaId,
                         principalTable: "categoria",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Producto_marca_MarcaId",
+                        name: "FK_productos_marca_MarcaId",
                         column: x => x.MarcaId,
                         principalTable: "marca",
                         principalColumn: "Id",
@@ -161,13 +161,13 @@ namespace Persistence.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Producto_CategoriaId",
-                table: "Producto",
+                name: "IX_productos_CategoriaId",
+                table: "productos",
                 column: "CategoriaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Producto_MarcaId",
-                table: "Producto",
+                name: "IX_productos_MarcaId",
+                table: "productos",
                 column: "MarcaId");
 
             migrationBuilder.CreateIndex(
@@ -185,7 +185,7 @@ namespace Persistence.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Producto");
+                name: "productos");
 
             migrationBuilder.DropTable(
                 name: "RefreshToken");

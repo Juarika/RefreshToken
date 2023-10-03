@@ -22,7 +22,7 @@ public static async Task SeedAsync(JwtAppContext context, ILoggerFactory loggerF
                     {
                         var marcas = csvMarcas.GetRecords<Marca>();
                         context.Marcas.AddRange(marcas);
-                        await context.SaveChangesAsync();
+                        await context.SaveChangesAsync();                 
                     }
                 }
             }
